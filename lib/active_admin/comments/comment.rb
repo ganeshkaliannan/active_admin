@@ -13,6 +13,11 @@ module ActiveAdmin
 
     validates_presence_of :body, :namespace, :resource
 
+ 
+   def resource
+     resource_type.constantize.unscoped{ super }
+   end
+
     # @returns [String] The name of the record to use for the polymorphic relationship
     def self.resource_type(record)
       record.class.base_class.name.to_s
